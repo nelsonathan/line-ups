@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Team Generator</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    
+    <!-- Latest jQuery & jQueryUI-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    
+    
+</head>
+
+<body>
+
+    <div id="content" class="row">
+        <div class="container">
+            <div class="col-md-12">
+	            
+	            <h1>Team Generator</h1>
+                
+                <h2>Randomly generate teams for your 5-a-side football games</h2>
+                
+	            <textarea data-limit-rows="true" name="players" id="players" cols="30" rows="10" placeholder="Add 10 Players"></textarea>
+	            <button id="generate">Generate Teams</button>
+	            <button id="reset">Reset</button>
+              
+            </div>
+        </div>
+    </div>
+    
+    <div id="theteams" class="row">
+	    <div class="container">
+		    <div class="col-md-6">
+			    <div id="team1">
+		              <p>Team One</p>
+		              
+					  <ul class="one">
+						  <li id="team1-p1"></li>
+						  <li id="team1-p2"></li>
+						  <li id="team1-p3"></li>
+						  <li id="team1-p4"></li>
+						  <li id="team1-p5"></li>
+					  </ul>
+			    </div>
+		    </div>
+		    <div class="col-md-6">
+			    <div id="team2">
+		              <p>Team Two</p>
+		              
+					  <ul class="two">
+						  <li id="team2-p1"></li>
+						  <li id="team2-p2"></li>
+						  <li id="team2-p3"></li>
+						  <li id="team2-p4"></li>
+						  <li id="team2-p5"></li>
+					  </ul>
+			    </div>
+		    </div>
+	    </div>
+    </div>
+        
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	    
+	<script>
+       
+        $("#generate").click(function() {
+			var lines = $('#players').val().split(/\n/);
+			var texts = [];
+			for (var i=0; i < lines.length; i++) {
+			  // only push this line if it contains a non whitespace character.
+			  if (/\S/.test(lines[i])) {
+			    texts.push($.trim(lines[i]));
+			  }
+			}  
+			
+			texts.sort(function() { return 0.5 - Math.random() });
+			
+			$("#team1 p").css("display", "block"); 
+			$("#team2 p").css("display", "block"); 
+						
+			document.getElementById("team1-p1").innerHTML = texts[0];
+			document.getElementById("team1-p2").innerHTML = texts[1];
+			document.getElementById("team1-p3").innerHTML = texts[2];
+			document.getElementById("team1-p4").innerHTML = texts[3];
+			document.getElementById("team1-p5").innerHTML = texts[4];
+			
+			document.getElementById("team2-p1").innerHTML = texts[5];
+			document.getElementById("team2-p2").innerHTML = texts[6];
+			document.getElementById("team2-p3").innerHTML = texts[7];
+			document.getElementById("team2-p4").innerHTML = texts[8];
+			document.getElementById("team2-p5").innerHTML = texts[9];			
+		
+		});
+		
+		$(document).ready(function () {
+		  $('textarea[data-limit-rows=true]').on('keypress', function (event) {
+		    var textarea = $(this),
+		        numberOfLines = (textarea.val().match(/\n/g) || []).length + 1,
+		        maxRows = parseInt(textarea.attr('rows'));
+		    
+		    if (event.which === 13 && numberOfLines === maxRows ) {
+		      return false;
+		    }
+		  });
+		});
+		
+		$("#reset").click(function() {
+			
+		    $("#players").attr("value", " ");
+		     
+		    document.getElementById("team1-p1").innerHTML = "";
+			document.getElementById("team1-p2").innerHTML = "";
+			document.getElementById("team1-p3").innerHTML = "";
+			document.getElementById("team1-p4").innerHTML = "";
+			document.getElementById("team1-p5").innerHTML = "";
+			
+			document.getElementById("team2-p1").innerHTML = "";
+			document.getElementById("team2-p2").innerHTML = "";
+			document.getElementById("team2-p3").innerHTML = "";
+			document.getElementById("team2-p4").innerHTML = "";
+			document.getElementById("team2-p5").innerHTML = "";
+		     
+		});
+		
+		
+    </script>
+
+</body>
+
+</html>
